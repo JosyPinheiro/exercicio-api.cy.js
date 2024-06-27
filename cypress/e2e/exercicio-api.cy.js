@@ -39,22 +39,22 @@ describe('Testes da Funcionalidade Usuários', () => {
     })
   });
 
-  // it('Deve validar um usuário com email inválido', () => {
-  //   cy.request({
-  //     method:'POST',
-  //     url: '/usuarios',
-  //     body: {
-  //       "nome": "usuario editado EBAC novo2",
-  //       "email": "testeeditado@qa.com.br",
-  //       "password": "teste",
-  //       "administrador": "true"
-  //     }
-  //   }).should((response) => {
-  //     expect(response.status).equal(400)
-  //     expect(response.message).equal('Este email já está sendo usado')
-  //   })
+  it('Deve validar um usuário com email inválido', () => {
+    cy.request({
+      method: 'POST',
+      url: '/usuarios',
+      body: {
+        "nome": "Maria",
+        "email": "maria!teste.com",
+        "password": "email",
+        "administrador": "true"
+      }, failOnStatusCode: false
+    }).should((response) => {
+      expect(response.status).equal(400)
+      expect(response.body.email).equal('email deve ser um email válido')
+    })
 
-  // })
+  })
 
   it('Deve editar um usuário previamente cadastrado', () => {
     cy.request({
